@@ -6,7 +6,7 @@ class Car
 
     /**
      * @var integer
-     */ private $nbWheels;
+     */ private $nbWheels=4;
 
     /**
      * @var integer
@@ -27,12 +27,24 @@ class Car
      * @var integer
      */ private $energyLevel;
 
+//--construct
 
+    public function __construct(string $color, int $nbSeat, string $energy)
+    {
+        $this->color = $color;
+        $this->nbSeat = $nbSeat;
+        $this->energy = $energy;
+    }
 // Accesseurs des propriétés
     /**
      * @return int
      */
-    public function getNbWheels($nbWheels)
+    public function getNbWheels()
+    {
+        return $this->nbWheels;
+    }
+
+    public function setNbWheels($nbWheels)
     {
         $this->nbWheels = $nbWheels;
     }
@@ -40,7 +52,12 @@ class Car
     /**
      * @return int
      */
-    public function getCurrentSpeed($currentSpeed)
+    public function getCurrentSpeed()
+    {
+        return $this->currentSpeed;
+    }
+
+    public function setCurrentSpeed($currentSpeed)
     {
         $this->currentSpeed = $currentSpeed;
     }
@@ -49,7 +66,11 @@ class Car
      * @return string
      */
 
-    public function getColor($color)
+    public function getColor()
+    {
+        return $this->color;
+    }
+    public function setColo($color)
     {
         $this->color = $color;
     }
@@ -57,7 +78,11 @@ class Car
     /**
      * @return int
      */
-    public function getNbSeat($nbSeat)
+    public function getNbSeat()
+    {
+        return $this->nbSeat;
+    }
+    public function setNbSeat($nbSeat)
     {
         $this->nbSeat = $nbSeat;
     }
@@ -65,43 +90,64 @@ class Car
     /**
      * @return string
      */
-    public function getEnergyType($energy)
+    public function getEnergy()
     {
-        $this->energy = $energy;
+        return $this->energy;
     }
 
+    public function setEnergy($energy)
+    {
+        return $this->energy = $energy;
+    }
     /**
      * @return int
      */
-    public function getEnergyLevel($energyLevel)
+    public function getEnergyLevel()
+    {
+        return $this->energyLevel;
+    }
+
+    public function setEnergyLevel($energyLevel)
     {
         $this->energyLevel = $energyLevel;
     }
 
 
-
 // Démarrer, avancer, freiner.
     public function start()
     {
-        $this->currentSpeed = 0;
-        return "La voiture démarre";
-
+        $sentence = "";
+        if($this->energyLevel>0) {
+            $this->energyLevel--;
+            $this->currentSpeed = 0;
+            $sentence .= "La voiture démarre";
+        } else {
+            $sentence.= "Plus d'énergie ...";
+        }
+        return $sentence;
     }
     public function forward()
     {
-        $this->currentSpeed = 100;
-        return "La voiture avance vite !!!";
+        $sentence = "";
+        if ($this->energyLevel > 0){
+            $this->energyLevel--;
+            $this->currentSpeed = 100;
+            $sentence.="La voiture avance vite !!!";
+        } else {
+            $sentence.="Plus d'énergie ...";
+            $this->currentSpeed=0;
+        }
+        return $sentence;
     }
 
     public function brake()
     {
         $sentence = "";
         while($this->currentSpeed>0){
-            $this->currentSpeed--;
+            $this->currentSpeed -= 10;
             $sentence .= "BRAKE !!";
         }
         $sentence .= "La voiture est arrêtée.";
         return $sentence;
     }
-
 }
